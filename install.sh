@@ -15,6 +15,9 @@ SERVICE_NAME="battery-current-restrictor"
 ln -sf /data/battery-current-restrictor/service /service/$SERVICE_NAME
 
 echo "Installation finished"
+
+sleep 2
+
 echo "Starting service..."
 
 svc -u /service/$SERVICE_NAME || true
