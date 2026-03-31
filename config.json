@@ -1,0 +1,5 @@
+{
+  "interval": 2,
+  "min_setpoint": -7500,
+  "max_setpoint": 0
+}
