@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import logging
+from logging.handlers import RotatingFileHandler
 import time
 import json
 import dbus
@@ -6,6 +8,24 @@ from dbus.mainloop.glib import DBusGMainLoop
 
 CONFIG_FILE = "/data/battery-current-restrictor/config.json"
 
+# Create logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+# Create rotating file handler (2MB max, keep 3 backups)
+handler = RotatingFileHandler(
+    "/data/battery-current-restrictor/app.log",
+    maxBytes=2048,  # 2 MB
+    backupCount=3
+)
+
+formatter = logging.Formatter(
+    "%(asctime)s - %(levelname)s - %(message)s"
+)
+handler.setFormatter(formatter)
+
+# Add handler to logger
+logger.addHandler(handler)
 
 def load_config():
     with open(CONFIG_FILE, "r") as f:
@@ -24,7 +44,7 @@ class BatteryCurrentRestrictor:
             obj = self.bus.get_object(service, path)
             return obj.GetValue()
         except Exception as e:
-            print("Read error:", e)
+            logger.error("Read error:", e)
             return None
 
     def set_value(self, service, path, value):
@@ -32,7 +52,7 @@ class BatteryCurrentRestrictor:
             obj = self.bus.get_object(service, path)
             obj.SetValue(dbus.Int32(value))
         except Exception as e:
-            print("Write error:", e)
+            logger.error("Write error:", e)
 
     def calculate(self, grid_power, battery_power, max_charge_power):
         # calculate difference and use it as new set point
@@ -44,7 +64,7 @@ class BatteryCurrentRestrictor:
         return int(target)
 
     def run(self):
-        print("Battery current restrictor started")
+        logger.info("Battery current restrictor started")
 
         #store default set point
         default_sp = 0
@@ -75,17 +95,17 @@ class BatteryCurrentRestrictor:
                                    "/Settings/CGwacs/AcPowerSetPoint",
                                    self.calculated_sp
                                    )
-                    print(f"Grid={grid_power}W, Battery={battery_power}W, Limit={max_charge_power}W → SP={self.calculated_sp}W")
+                    logger.info(f"Grid={grid_power}W, Battery={battery_power}W, Limit={max_charge_power}W → SP={self.calculated_sp}W")
 
                     # if new set point matches default, limitation can be deactivated
                     if self.calculated_sp == default_sp:
                         limitation_active = False
-                        print("Limitation got deactivated")
+                        logger.info("Limitation got deactivated")
 
                 # check if limitation needs to be activated
                 elif battery_power > max_charge_power:
                     limitation_active = True
-                    print("Limitation got activated")
+                    logger.info("Limitation got activated")
 
             #otherwise restore default grid set point and deactivate limitation if still active
             elif limitation_active:
@@ -94,7 +114,7 @@ class BatteryCurrentRestrictor:
                                default_sp
                                )
                 limitation_active = False
-                print("Limitation got deactivated")
+                logger.info("Limitation got deactivated")
 
             time.sleep(self.config["interval"])
 
