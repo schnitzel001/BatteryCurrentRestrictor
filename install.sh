@@ -4,16 +4,6 @@ set -e
 
 echo "Install BatteryCurrentRestrictor service..."
 
-cd /data
-
-# Clone / update
-if [ ! -d "battery-current-restrictor" ]; then
-    git clone https://github.com/schnitzel001/BatteryCurrentRestrictor.git battery-current-restrictor
-else
-    cd battery-current-restrictor
-    git pull
-fi
-
 cd /data/battery-current-restrictor
 
 pip3 install -r requirements.txt
