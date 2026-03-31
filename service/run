@@ -1,0 +1,11 @@
+#!/bin/sh
+exec 2>&1
+
+echo "Starting BatteryCurrentRestrictor service..."
+
+while true
+do
+    python3 /data/battery-current-restrictor/battery_current_restrictor.py
+    echo "Restart in 5s..."
+    sleep 5
+done
