@@ -6,8 +6,6 @@ echo "Install BatteryCurrentRestrictor service..."
 
 cd /data/battery-current-restrictor
 
-pip3 install -r requirements.txt
-
 chmod +x battery_current_restrictor.py
 chmod +x service/run
 
