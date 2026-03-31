@@ -8,7 +8,7 @@ cd /data
 
 # Clone / update
 if [ ! -d "battery-current-restrictor" ]; then
-    git clone https://github.com/DEINUSER/cerbo-ess-dbus.git battery-current-restrictor
+    git clone https://github.com/schnitzel001/BatteryCurrentRestrictor.git battery-current-restrictor
 else
     cd battery-current-restrictor
     git pull

@@ -54,8 +54,7 @@ class BatteryCurrentRestrictor:
         while True:
             soc = self.get_value("com.victronenergy.battery.socketcan_can1",
                                  "/Soc")
-            battery_charging = self.get_value("com.victronenergy.battery.socketcan_can1",
-                           "/Dc/0/Power") > 0
+            battery_charging = self.get_value("com.victronenergy.battery.socketcan_can1","/Dc/0/Power") > 0
             # only perform restriction when SOC<100% and battery is currently charging
             if soc < 100 and battery_charging:
                 L1_grid_power = self.get_value("com.victronenergy.system","/Ac/Grid/L1/Power")
