@@ -18,6 +18,5 @@ echo "Installation finished"
 
 sleep 2
 
-echo "Starting service..."
-
-svc -u /service/$SERVICE_NAME || true
+echo "(Re)starting service..."
+svc -t /service/$SERVICE_NAME 2>/dev/null || svc -u /service/$SERVICE_NAME || true
