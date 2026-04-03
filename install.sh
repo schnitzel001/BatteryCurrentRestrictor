@@ -12,7 +12,8 @@ chmod +x service/run
 # register service
 SERVICE_NAME="battery-current-restrictor"
 SYMLINK="/service/$SERVICE_NAME"
-TARGET="/data/battery-current-restrictor/service"
+TARGET_BASE="/data/battery-current-restrictor"
+TARGET="$TARGET_BASE/service"
 
 # Create or update the symlink
 ln -sf "$TARGET" "$SYMLINK"
@@ -40,25 +41,7 @@ echo "Installation finished"
 sleep 2
 
 echo "(Re)starting service..."
-# Stop the service gracefully
-svc -d "$SYMLINK"
-
-# Wait until service stops or timeout
-elapsed=0
-while [ -e "$SYMLINK/supervise/ok" ] && [ $elapsed -lt 5 ]; do
-    sleep 0.5
-    elapsed=$((elapsed + 1))
-done
-
-# If still running, forcibly kill the process
-if [ -e "$SYMLINK/supervise/ok" ]; then
-    echo "Service did not stop gracefully, killing..."
-    # Find the PID supervised by runit
-    PID=$(cat "$SYMLINK/supervise/pid" 2>/dev/null)
-    if [ -n "$PID" ]; then
-        kill -9 "$PID" 2>/dev/null || true
-    fi
-fi
+pkill -f "$TARGET_BASE/battery_current_restrictor.py" 2>/dev/null || true
 
 # Start the service
 svc -u "$SYMLINK"
