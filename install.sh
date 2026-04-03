@@ -40,4 +40,16 @@ echo "Installation finished"
 sleep 2
 
 echo "(Re)starting service..."
-svc -t /service/$SERVICE_NAME 2>/dev/null || svc -u /service/$SERVICE_NAME || true
+#svc -t /service/$SERVICE_NAME 2>/dev/null || svc -u /service/$SERVICE_NAME || true
+# Stop the service
+if svc -d "$SYMLINK"; then
+    echo "Stopping service..."
+    # Wait until service is stopped
+    while [ -e "$SYMLINK/supervise/ok" ]; do
+        sleep 0.1
+    done
+fi
+
+# Start the service
+svc -u "$SYMLINK"
+echo "Service restarted successfully."
