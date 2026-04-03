@@ -15,17 +15,14 @@ logger.setLevel(logging.INFO)
 # Create rotating file handler (2MB max, keep 3 backups)
 handler = RotatingFileHandler(
     "/data/battery-current-restrictor/app.log",
-    maxBytes=2048,  # 2 MB
+    maxBytes=2048,
     backupCount=3
 )
 
-formatter = logging.Formatter(
-    "%(asctime)s - %(levelname)s - %(message)s"
-)
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
-
-# Add handler to logger
 logger.addHandler(handler)
+
 
 def load_config():
     with open(CONFIG_FILE, "r") as f:
@@ -73,7 +70,7 @@ class BatteryCurrentRestrictor:
 
         # from configured charge curve
         if self.config.get("charge_curve_limit_activated"):
-            curve = self.config.get("charge_curve", [])
+            curve = self.config.get("individual_charge_curve", [])
             charge_curve_limit = self.get_allowed_current_from_curve(soc, curve)
             list_of_limits.append(charge_curve_limit)
 
