@@ -40,14 +40,24 @@ echo "Installation finished"
 sleep 2
 
 echo "(Re)starting service..."
-#svc -t /service/$SERVICE_NAME 2>/dev/null || svc -u /service/$SERVICE_NAME || true
-# Stop the service
-if svc -d "$SYMLINK"; then
-    echo "Stopping service..."
-    # Wait until service is stopped
-    while [ -e "$SYMLINK/supervise/ok" ]; do
-        sleep 0.1
-    done
+# Stop the service gracefully
+svc -d "$SYMLINK"
+
+# Wait until service stops or timeout
+elapsed=0
+while [ -e "$SYMLINK/supervise/ok" ] && [ $elapsed -lt 5 ]; do
+    sleep 0.5
+    elapsed=$((elapsed + 1))
+done
+
+# If still running, forcibly kill the process
+if [ -e "$SYMLINK/supervise/ok" ]; then
+    echo "Service did not stop gracefully, killing..."
+    # Find the PID supervised by runit
+    PID=$(cat "$SYMLINK/supervise/pid" 2>/dev/null)
+    if [ -n "$PID" ]; then
+        kill -9 "$PID" 2>/dev/null || true
+    fi
 fi
 
 # Start the service
