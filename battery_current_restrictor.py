@@ -107,7 +107,8 @@ class BatteryCurrentRestrictor:
 
     def run(self):
         logger.info("Battery current restrictor started")
-
+        # wait a little for start after reboot
+        time.sleep(20)
         #store default set point
         default_sp = 0
         limitation_active = False

@@ -23,17 +23,17 @@ echo "Symlink ensured: $SYMLINK -> $TARGET"
 RC_COMMAND="ln -sf $TARGET $SYMLINK"
 
 # Ensure rc.local exists and is executable
-if [ ! -f /etc/rc.local ]; then
+if [ ! -f /data/rc.local ]; then
     echo -e "#!/bin/sh -e\n\nexit 0" > /etc/rc.local
     chmod +x /etc/rc.local
 fi
 
 # Add command to rc.local if not already present
-if ! grep -Fxq "$RC_COMMAND" /etc/rc.local; then
-    sed -i "/^exit 0/i $RC_COMMAND" /etc/rc.local
-    echo "Added symlink command to rc.local"
+if ! grep -Fxq "$TARGET_BASE/install.sh" /data/rc.local; then
+    echo "$TARGET_BASE/install.sh" >> /data/rc.local
+    echo "Added battery_current_restrictor to rc.local"
 else
-    echo "Symlink command already in rc.local"
+    echo "battery_current_restrictor already in rc.local"
 fi
 
 echo "Installation finished"
