@@ -6,11 +6,11 @@ Ein Add-on für **Victron Venus OS**, das den Ladestrom deines Batteriesystems a
 
 - 🔍 Überwachung des aktuellen Batterieladestroms
 - ⚖️ Vergleich mit zulässigem Ladestrom durch BMS-Vorgabe
+- ⚖️ Vergleich mit konfigurierbarer Ladekurve
 - 🔧 Dynamische Anpassung des **Grid Set Points**, wenn Grenzwerte überschritten werden
 
 ### 🧠 Geplante Features
 
-- 📈 Konfigurierbare Ladekurve (manuell definierbar)
 - ☀️ Intelligente Ladeplanung basierend auf PV-Ertragsprognosen
 
 ---
@@ -35,10 +35,17 @@ Führe die folgenden Befehle auf deinem Venus OS System aus:
 ```bash
 wget https://github.com/schnitzel001/BatteryCurrentRestrictor/archive/refs/heads/master.zip
 unzip master.zip
-mv BatteryCurrentRestrictor-master/* /data/battery-current-restrictor
+cp -r BatteryCurrentRestrictor-master/* /data/battery-current-restrictor/
 chmod +x /data/battery-current-restrictor/install.sh
 /data/battery-current-restrictor/install.sh
+# cleanup
+rm -f master.zip
+rm -rf BatteryCurrentRestrictor-master
 ```
+
+## ⚡ Update
+
+Führe die unter Installation genannten Schritte erneut aus.
 
 ## ⚠️ Sicherheitshinweis ⚠️
 
