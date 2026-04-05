@@ -43,6 +43,10 @@ rm -f master.zip
 rm -rf BatteryCurrentRestrictor-master
 ```
 
+## ⚙️ Konfiguration
+
+Über die enthaltene config.json können einzelne Begrenzungen (de-)aktiviert sowie konfiguriert werden. Nachdem Änderungen an der Datei vorgenommen wurden ist ein Service-restart notwendig. Dazu Venus OS rebooten oder install.sh erneut ausführen.
+
 ## ⚡ Update
 
 Führe die unter Installation genannten Schritte erneut aus.
