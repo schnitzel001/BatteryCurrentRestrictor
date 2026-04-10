@@ -2,8 +2,8 @@
   "interval": 2,
   "min_setpoint": -7500,
   "max_setpoint": 0,
+  "bms_dbus_service": "com.victronenergy.battery.socketcan_can1",
   "bms_limit_activated": true,
-  "bms_limit_dbus_service": "com.victronenergy.battery.socketcan_can1",
   "bms_limit_value_path": "/Info/MaxChargeCurrent",
   "charge_curve_limit_activated": true,
   "individual_charge_curve": [
