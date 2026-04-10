@@ -57,7 +57,7 @@ class BatteryCurrentRestrictor:
         target = grid_power - delta
         # restrict to absolute limits
         target = max(target, self.config["min_setpoint"])
-        target = min(target, self.config["max_setpoint"]) # max should be 0!
+        target = min(target, self.config["max_setpoint"])
         return int(target)
 
     def get_charge_limit(self, soc):
@@ -109,8 +109,8 @@ class BatteryCurrentRestrictor:
         logger.info("Battery current restrictor started")
         # wait a little for start after reboot
         time.sleep(20)
-        #store default set point
-        default_sp = 0
+        #default set point equals max setpoint from config
+        default_sp = self.config["max_setpoint"]
         limitation_active = False
 
         while True:
