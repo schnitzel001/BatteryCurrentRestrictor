@@ -64,7 +64,7 @@ class BatteryCurrentRestrictor:
         list_of_limits =[]
         # from BMS
         if self.config.get("bms_limit_activated"):
-            bms_limit = self.get_value(self.config.get("bms_limit_dbus_service"),
+            bms_limit = self.get_value(self.config.get("bms_dbus_service"),
                                        self.config.get("bms_limit_value_path"))
             list_of_limits.append(bms_limit)
 
@@ -114,7 +114,7 @@ class BatteryCurrentRestrictor:
         limitation_active = False
 
         while True:
-            soc = int(self.get_value("com.victronenergy.battery.socketcan_can1","/Soc"))
+            soc = int(self.get_value(self.config.get("bms_dbus_service"),"/Soc"))
             battery_power = int(self.get_value("com.victronenergy.system", "/Dc/Battery/Power"))
 
             max_charge_current = self.get_charge_limit(soc)
@@ -122,7 +122,7 @@ class BatteryCurrentRestrictor:
                 # no limit activated - skip all
                 continue
 
-            dc_voltage = self.get_value("com.victronenergy.battery.socketcan_can1",
+            dc_voltage = self.get_value(self.config.get("bms_dbus_service"),
                                         "/Dc/0/Voltage")
             max_charge_power = int(max_charge_current * dc_voltage)
 
