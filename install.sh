@@ -24,8 +24,8 @@ RC_COMMAND="ln -sf $TARGET $SYMLINK"
 
 # Ensure rc.local exists and is executable
 if [ ! -f /data/rc.local ]; then
-    echo -e "#!/bin/sh -e\n\nexit 0" > /etc/rc.local
-    chmod +x /etc/rc.local
+    echo -e "#!/bin/sh -e\n\nexit 0" > /data/rc.local
+    chmod +x /data/rc.local
 fi
 
 # Add command to rc.local if not already present
