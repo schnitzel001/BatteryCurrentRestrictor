@@ -35,6 +35,7 @@ Führe die folgenden Befehle auf deinem Venus OS System aus:
 ```bash
 wget https://github.com/schnitzel001/BatteryCurrentRestrictor/archive/refs/heads/master.zip
 unzip master.zip
+mkdir -p /data/battery-current-restrictor/service
 cp -r BatteryCurrentRestrictor-master/* /data/battery-current-restrictor/
 chmod +x /data/battery-current-restrictor/install.sh
 /data/battery-current-restrictor/install.sh
