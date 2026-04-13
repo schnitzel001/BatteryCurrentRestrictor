@@ -37,8 +37,15 @@ wget https://github.com/schnitzel001/BatteryCurrentRestrictor/archive/refs/heads
 unzip master.zip
 mkdir -p /data/battery-current-restrictor/service
 cp -r BatteryCurrentRestrictor-master/* /data/battery-current-restrictor/
+```
+Führe ggf. notwendige Anpassungen in /data/battery-current-restrictor/config.json durch.
+
+Schließe die Installation danach ab mit:
+
+```bash
 chmod +x /data/battery-current-restrictor/install.sh
 /data/battery-current-restrictor/install.sh
+/data/battery-current-restrictor/restart.sh
 # cleanup
 rm -f master.zip
 rm -rf BatteryCurrentRestrictor-master
