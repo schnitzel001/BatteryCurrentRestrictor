@@ -7,6 +7,8 @@ echo "Install BatteryCurrentRestrictor service..."
 cd /data/battery-current-restrictor
 
 chmod +x battery_current_restrictor.py
+chmod +x restart.sh
+chmod +x uninstall.sh
 chmod +x service/run
 
 # register service
