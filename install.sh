@@ -19,15 +19,12 @@ TARGET="$TARGET_BASE/service"
 ln -sf "$TARGET" "$SYMLINK"
 echo "Symlink ensured: $SYMLINK -> $TARGET"
 
-# Command to run on boot
-RC_COMMAND="ln -sf $TARGET $SYMLINK"
-
+# add install.sh to rc.local to ensure script install after firmware update
 # Ensure rc.local exists and is executable
 if [ ! -f /data/rc.local ]; then
     echo -e "#!/bin/sh -e\n\nexit 0" > /data/rc.local
     chmod +x /data/rc.local
 fi
-
 # Add command to rc.local if not already present
 if ! grep -Fxq "$TARGET_BASE/install.sh" /data/rc.local; then
     echo "$TARGET_BASE/install.sh" >> /data/rc.local
@@ -37,12 +34,3 @@ else
 fi
 
 echo "Installation finished"
-
-sleep 2
-
-echo "(Re)starting service..."
-pkill -f "$TARGET_BASE/battery_current_restrictor.py" 2>/dev/null || true
-
-# Start the service
-svc -u "$SYMLINK"
-echo "Service restarted successfully."
