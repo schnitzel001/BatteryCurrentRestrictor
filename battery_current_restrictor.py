@@ -107,6 +107,7 @@ class BatteryCurrentRestrictor:
 
     def run(self):
         logger.info("Battery current restrictor started")
+        logger.info("Loaded configuration:\n%s", json.dumps(self.config, indent=2))
         # wait a little for start after reboot
         time.sleep(20)
         #default set point equals max setpoint from config
