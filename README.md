@@ -53,11 +53,13 @@ rm -rf BatteryCurrentRestrictor-master
 
 ## ⚙️ Konfiguration
 
-Über die enthaltene config.json können einzelne Begrenzungen (de-)aktiviert sowie konfiguriert werden. Nachdem Änderungen an der Datei vorgenommen wurden ist ein Service-restart notwendig. Dazu Venus OS rebooten oder install.sh erneut ausführen.
+Über die enthaltene config.json können Anpassungen an das persönliche Setup vorgenommen sowie einzelne Begrenzungen (de-)aktiviert sowie konfiguriert werden. Speziell die Angabe des richtigen BMS-dbus-service ist hier wichtig. Eine Liste aller verfügbaren Services kann mit `dbus -y` angezeigt werden.
+
+Nachdem Änderungen an der Datei vorgenommen wurden ist ein Service-restart notwendig. Dazu restart.sh ausführen.
 
 ## ⚡ Update
 
-Führe die unter Installation genannten Schritte erneut aus.
+Führe die unter Installation genannten Schritte erneut aus. Sichere ggf. vorher die persönlichen Anpassungen aus config.json.
 
 ## ⚠️ Sicherheitshinweis ⚠️
 
