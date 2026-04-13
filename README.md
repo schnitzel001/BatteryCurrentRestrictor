@@ -45,7 +45,6 @@ Schließe die Installation danach ab mit:
 ```bash
 chmod +x /data/battery-current-restrictor/install.sh
 /data/battery-current-restrictor/install.sh
-/data/battery-current-restrictor/restart.sh
 # cleanup
 rm -f master.zip
 rm -rf BatteryCurrentRestrictor-master
