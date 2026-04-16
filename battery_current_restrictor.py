@@ -15,7 +15,7 @@ logger.setLevel(logging.INFO)
 # Create rotating file handler (2MB max, keep 3 backups)
 handler = RotatingFileHandler(
     "/data/battery-current-restrictor/app.log",
-    maxBytes=2048,
+    maxBytes=2097152,
     backupCount=3
 )
 
